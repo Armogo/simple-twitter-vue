@@ -283,15 +283,7 @@ export default {
         { text: "Icecream", type: "msg-out", time: `${TWLocale.showTime}` },
       ],
       newMsg: "",
-      attendees: [
-        {
-          avatar:
-            "https://loremflickr.com/320/240/restaurant,food/?random=8.858769683928713&lock=89.77442629509149",
-          name: "Taro",
-          account: "JOJO",
-          id: -1,
-        },
-      ],
+      attendees: [],
       // 連線至socket server
       socket: io("https://actwitter.herokuapp.com"),
     };
@@ -306,6 +298,18 @@ export default {
         }
 
         this.userData = { ...response.data };
+        this.attendees.push({
+          avatar: this.userData.avatar,
+          name: this.userData.name,
+          account: this.userData.account,
+          id: this.userData.id,
+        });
+
+        this.msgs.push({
+          text: `${this.userData.name}加入聊天`,
+          type: "connection",
+          time: `${TWLocale.showTime}`,
+        });
       } catch (error) {
         console.log("error", error);
       }
@@ -352,7 +356,19 @@ export default {
       // 監聽接收線上使用者列表及所有使用者資料
       this.socket.on("online-list", (inRoomUsers) => {
         console.log("inRoomUsers", inRoomUsers);
-        this.attendees = [...inRoomUsers];
+        // TODO inRoomUsers array 內的每一個 user 資料
+        // 以 {avatar, name, account, id} 物件型態加進 attendees array
+        inRoomUsers.map((user) => {
+          // 避免重複加入相同使用者資料
+          if (!this.attendees.some((attendee) => attendee.id === user.id)) {
+            this.attendees.push({
+              avatar: user.avatar,
+              name: user.name,
+              account: user.account,
+              id: user.id,
+            });
+          }
+        });
       });
 
       // 監聽公開聊天室公告廣播
@@ -369,10 +385,11 @@ export default {
       // 監聽公開聊天室使用者下線訊息
       this.socket.on("public-offline-notice", (userId) => {
         console.log(userId, "left room");
-        const newAttendee = this.attendees.find((user) => user.id === userId);
+        const leftAttendee = this.attendees.find((user) => user.id === userId);
+
         this.attendees = this.attendees.filter((user) => user.id !== userId);
         this.msgs.push({
-          text: `${newAttendee.name}離開聊天室`,
+          text: `${leftAttendee.name}離開聊天室`,
           type: "connection",
           time: `${TWLocale.showTime}`,
         });
@@ -387,10 +404,11 @@ export default {
           time: `${TWLocale.showTime}`,
         });
       });
-      console.log(`socket just started listening!`);
+      console.log(`socket started listening!`);
     },
     socketEnd() {
       this.socket.disconnect();
+      console.log("socket has disconnected");
     },
   },
   watch: {
@@ -413,7 +431,7 @@ export default {
     this.listenToServer();
   },
   beforeDestroy() {
-    this.socket.disconnect(); // 離開聊天室頁面則停止嘗試 reconnect
+    this.socketEnd(); // 離開聊天室頁面則停止嘗試 reconnect
     Toast.fire({
       position: "top",
       title: "離開公開聊天室",
