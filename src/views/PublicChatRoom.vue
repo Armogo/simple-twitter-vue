@@ -18,8 +18,17 @@
       <div class="room-body scrollbar">
         <div v-for="(msg, index) in msgs" :key="index">
           <div :class="msg.type">
-            {{ msg.text }}
-            <br />
+            <span>{{ msg.text }}</span>
+          </div>
+          <div
+            :class="
+              msg.type === 'connection'
+                ? 'connection-time'
+                : msg.type === 'msg-in'
+                ? 'msg-in-time'
+                : 'msg-out-time'
+            "
+          >
             <span>{{ msg.time }}</span>
           </div>
         </div>
@@ -79,20 +88,37 @@
         padding-top: 10px;
         padding-bottom: 15px;
         padding-left: 15px;
+        padding-right: min(15px);
 
         img {
           border-radius: 50%;
           width: 50px;
           height: 50px;
         }
+
         span {
           margin: auto 0%;
         }
+
+        // common CSS for .name and .account
+        .name,
+        .account {
+          font-family: Noto Sans TC;
+          font-style: normal;
+          font-size: 15px;
+          line-height: 22px;
+        }
+
         .name {
           margin-left: 10px;
           margin-right: 5px;
+          font-weight: bold;
+          color: #1c1c1c;
         }
+
         .account {
+          font-weight: 500;
+          color: #657786;
         }
       }
     }
@@ -121,18 +147,22 @@
       overflow-y: scroll;
       margin: 0 15px;
 
-      .connection {
-        text-align: center;
-        background-color: #e5e5e5;
-        border-radius: 50px;
-        width: fit-content;
-        margin: 0 auto;
-        margin-bottom: 15px;
+      // common CSS for showing messages
+      .connection,
+      .msg-in,
+      .msg-out {
         padding: 10px 15px;
+        width: fit-content;
         font-family: Noto Sans TC;
         font-style: normal;
-        font-weight: 500;
         font-size: 15px;
+      }
+
+      .connection {
+        background: #e5e5e5;
+        border-radius: 50px;
+        margin: 0 auto;
+        font-weight: 500;
         line-height: 15px;
         text-align: center;
         color: #657786;
@@ -141,13 +171,6 @@
       .msg-in {
         background: #e6ecf0;
         border-radius: 25px 25px 25px 0px;
-        width: fit-content;
-        margin-bottom: 35px;
-        padding: 10px 15px;
-        font-family: Noto Sans TC;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 15px;
         line-height: 20px;
         color: #1c1c1c;
       }
@@ -155,17 +178,39 @@
       .msg-out {
         background: #ff6600;
         border-radius: 25px 25px 0px 25px;
-        margin: 0 0 35px auto;
-        width: fit-content;
-        padding: 10px 15px;
-        font-family: Noto Sans TC;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 15px;
+        margin: 0 0 0 auto;
         line-height: 20px;
         color: #ffffff;
       }
+
+      // common CSS for showing time
+      .connection-time,
+      .msg-in-time,
+      .msg-out-time {
+        margin-top: 2px;
+        font-family: Noto Sans TC;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 13px;
+        line-height: 13px;
+        color: #657786;
+      }
+
+      .connection-time {
+        text-align: center;
+        margin-bottom: 15px;
+      }
+
+      .msg-in-time {
+        margin-bottom: 35px;
+      }
+
+      .msg-out-time {
+        width: fit-content;
+        margin: 0 0 35px auto;
+      }
     }
+
     .room-footer {
       display: flex;
       align-items: center;
