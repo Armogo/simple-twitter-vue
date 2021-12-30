@@ -206,8 +206,9 @@
       }
 
       .msg-out-time {
-        width: fit-content;
-        margin: 0 0 35px auto;
+        @extend .msg-in-time;
+        width: fit-content;        
+        margin-left: auto;
       }
     }
 
