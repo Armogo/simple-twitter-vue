@@ -36,12 +36,12 @@ export function roleAccessControl(VueComponent, role) {
 
   if (!getRole) {
     VueComponent.$router.push("/");
-    throw "Please sign in first";
+    throw new Error("Please sign in first");
   }
 
   if (getRole !== role) {
     // "10550" stands for admin, "8347" stands for user
     VueComponent.$router.back();
-    throw "No access";
+    throw new Error("No access");
   }
 }
