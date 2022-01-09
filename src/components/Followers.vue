@@ -1,11 +1,11 @@
 <template>
   <div class="followers">
     <h1>跟隨誰</h1>
-    <div v-for="user in users" :key="user.followingId" class="popular-users">
-      <img :src="user.following.avatar" alt="avatar" />
+    <div v-for="(user, index) in users" :key="index" class="popular-users">
+      <img :src="user.follower.avatar" alt="avatar" />
       <div class="name-account">
-        <div class="name">{{ user.following.name }}</div>
-        <div class="account">@ {{ user.following.account }}</div>
+        <div class="name">{{ user.follower.name }}</div>
+        <div class="account">@ {{ user.follower.account }}</div>
       </div>
       <div
         v-if="user.isFollowed"
@@ -128,6 +128,7 @@ export default {
           throw new Error(response);
         }
         this.users = [...response.data];
+        this.toggleFollowing(getUserId());
       } catch (error) {
         console.log("error", error.response || error);
       }
