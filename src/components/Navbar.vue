@@ -92,19 +92,14 @@
           <span
             class="notification-words"
             :style="{
-              'color': $route.name === 'notification' ? '#FF6600' : '#000000',
-              'color': '#c9c7c7',              
+              color: $route.name === 'notification' ? '#FF6600' : '#000000',
+              color: '#c9c7c7',
             }"
           >
             通知
           </span>
           <!-- TODO 通知功能開發中 -->
-          <span style="
-            margin-left: 0px; 
-            color: #c9c7c7;            
-          ">
-            (開發中)
-          </span>
+          <span style="margin-left: 0px; color: #c9c7c7"> (開發中) </span>
         </div></router-link
       >
       <!-- 公開聊天室 -->
@@ -167,19 +162,14 @@
           <span
             class="private-message-words"
             :style="{
-              'color': $route.name === 'privateMessage' ? '#FF6600' : '#000000',
-              'color': '#c9c7c7',              
+              color: $route.name === 'privateMessage' ? '#FF6600' : '#000000',
+              color: '#c9c7c7',
             }"
           >
             私人訊息
           </span>
           <!-- TODO 私人訊息功能開發中 -->
-          <span style="
-            margin-left: 0px;
-            color: #c9c7c7;
-          ">
-            (開發中)
-          </span>       
+          <span style="margin-left: 0px; color: #c9c7c7"> (開發中) </span>
         </div>
       </router-link>
       <router-link to="/profile">
@@ -342,7 +332,7 @@
       display: flex;
       margin: 10px;
     }
-    
+
     // TODO 待功能開發完即可移除的 cursor style
     .notification,
     .private-message {
