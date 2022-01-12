@@ -237,6 +237,12 @@ export default {
 
         this.isProcessing = true;
 
+        Toast.fire({
+          title: "登入中，請稍後",
+          timer: undefined,
+          didOpen: () => Toast.showLoading(),
+        });
+
         const response = await authorizationAPI.signIn({
           email: this.email,
           password: this.password,
@@ -256,6 +262,17 @@ export default {
             icon: "warning",
             position: "top",
             title: "請透過後台登入",
+            showConfirmButton: true,
+            confirmButtonText: "後臺登入",
+            confirmButtonColor: "#2775e3",
+            showDenyButton: true,
+            denyButtonText: "取消",
+            denyButtonColor: "#84878c",
+            timer: undefined,
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.$router.push({ name: "signin-admin" });
+            }
           });
         }
 
@@ -265,8 +282,26 @@ export default {
         // 給予 role 代號，判斷頁面觀看權限
         localStorage.setItem("role", "8347");
 
+        // 關閉 Toast loader
+        Toast.close();
+
         // 成功登入後轉址到首頁
         this.$router.push("/main");
+
+        // 登入成功的訊息
+        const d = new Date();
+        const hourNow = d.getHours();
+        const greeting =
+          (await hourNow) <= 12
+            ? `早安 ${data.user.name}`
+            : hourNow <= 17
+            ? `午安 ${data.user.name}`
+            : `晚安 ${data.user.name}`;
+
+        Toast.fire({
+          icon: "success",
+          title: greeting,
+        });
       } catch (error) {
         // 將密碼欄位清空
         this.password = "";
