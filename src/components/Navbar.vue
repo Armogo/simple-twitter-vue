@@ -65,8 +65,9 @@
           </span>
         </div>
       </router-link>
-      <!-- 通知 -->
-      <router-link to="/notification">
+      <!-- TODO 通知 -->
+      <!-- <router-link to="/notification"> -->
+      <router-link to="">
         <div class="notification">
           <div class="notification-icon">
             <svg
@@ -91,16 +92,24 @@
           <span
             class="notification-words"
             :style="{
-              color: $route.name === 'notification' ? '#FF6600' : '#000000',
+              'color': $route.name === 'notification' ? '#FF6600' : '#000000',
+              'color': '#c9c7c7',              
             }"
           >
             通知
           </span>
+          <!-- TODO 通知功能開發中 -->
+          <span style="
+            margin-left: 0px; 
+            color: #c9c7c7;            
+          ">
+            (開發中)
+          </span>
         </div></router-link
       >
       <!-- 公開聊天室 -->
-      <router-link to="/public-chat-room"
-        ><div class="public-chat-room">
+      <router-link to="/public-chat-room">
+        <div class="public-chat-room">
           <div class="public-chat-room-icon">
             <svg
               width="20"
@@ -129,11 +138,12 @@
           >
             公開聊天室
           </span>
-        </div></router-link
-      >
-      <!-- 私人訊息 -->
-      <router-link to="/private-message"
-        ><div class="private-message">
+        </div>
+      </router-link>
+      <!-- TODO 私人訊息 -->
+      <!-- <router-link to="/private-message"> -->
+      <router-link to="">
+        <div class="private-message">
           <div class="private-message-icon">
             <svg
               width="20"
@@ -157,13 +167,21 @@
           <span
             class="private-message-words"
             :style="{
-              color: $route.name === 'privateMessage' ? '#FF6600' : '#000000',
+              'color': $route.name === 'privateMessage' ? '#FF6600' : '#000000',
+              'color': '#c9c7c7',              
             }"
           >
             私人訊息
           </span>
-        </div></router-link
-      >
+          <!-- TODO 私人訊息功能開發中 -->
+          <span style="
+            margin-left: 0px;
+            color: #c9c7c7;
+          ">
+            (開發中)
+          </span>       
+        </div>
+      </router-link>
       <router-link to="/profile">
         <div class="profile">
           <div class="profile-icon">
@@ -324,6 +342,13 @@
       display: flex;
       margin: 10px;
     }
+    
+    // TODO 待功能開發完即可移除的 cursor style
+    .notification,
+    .private-message {
+      cursor: not-allowed;
+    }
+
     .tweet {
       display: flex;
       flex-direction: row;

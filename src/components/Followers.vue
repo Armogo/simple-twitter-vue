@@ -135,7 +135,7 @@ export default {
     },
     toggleFollowing(userId) {
       this.users = this.users.map((user) => {
-        if (user.followingId === userId) {
+        if (user.followingId === Number(userId)) {
           return {
             ...user,
             isFollowed: !user.isFollowed,
