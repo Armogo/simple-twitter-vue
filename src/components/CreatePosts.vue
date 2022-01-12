@@ -91,7 +91,7 @@
     .button-area {
       display: flex;
       flex-direction: column;
-      justify-content: end;
+      justify-content: flex-end;
       text-align: center;
       .word-count {
         width: 100%;
