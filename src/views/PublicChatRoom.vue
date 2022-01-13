@@ -207,7 +207,7 @@
 
       .msg-out-time {
         @extend .msg-in-time;
-        width: fit-content;        
+        width: fit-content;
         margin-left: auto;
       }
     }
@@ -276,6 +276,7 @@ export default {
   },
   data() {
     return {
+      // userId: Number(localStorage.getItem("user")),
       userId: localStorage.getItem("user"),
       userData: {},
       msgs: [
@@ -299,12 +300,18 @@ export default {
         }
 
         this.userData = { ...response.data };
-        this.attendees.push({
-          avatar: this.userData.avatar,
-          name: this.userData.name,
-          account: this.userData.account,
-          id: this.userData.id,
-        });
+
+        // 避免重複加入相同使用者資料
+        if (
+          !this.attendees.some((attendee) => attendee.id === this.userData.id)
+        ) {
+          this.attendees.push({
+            avatar: this.userData.avatar,
+            name: this.userData.name,
+            account: this.userData.account,
+            id: this.userData.id,
+          });
+        }
 
         this.msgs.push({
           text: `${this.userData.name}加入聊天`,
@@ -354,51 +361,65 @@ export default {
         console.log("publicChatRecord", publicChatRecord);
       });
 
-      // 監聽接收線上使用者列表及所有使用者資料
+      // TODO 監聽接收線上使用者列表及所有使用者資料
       this.socket.on("online-list", (inRoomUsers) => {
-        console.log("inRoomUsers", inRoomUsers);
-        // TODO inRoomUsers array 內的每一個 user 資料
-        // 以 {avatar, name, account, id} 物件型態加進 attendees array
-        inRoomUsers.map((user) => {
-          // 避免重複加入相同使用者資料
-          if (!this.attendees.some((attendee) => attendee.id === user.id)) {
-            this.attendees.push({
-              avatar: user.avatar,
-              name: user.name,
-              account: user.account,
-              id: user.id,
-            });
-          }
-        });
+        console.log("inRoomUsers", inRoomUsers);        
       });
 
       // 監聽公開聊天室公告廣播
-      this.socket.on("public-online-notice", (userId) => {
+      this.socket.on("public-online-notice", async (userId) => {
         console.log(userId, "joined room");
-        const newAttendee = this.attendees.find((user) => user.id === userId);
-        this.msgs.push({
-          text: `${newAttendee.name}加入聊天`,
-          type: "connection",
-          time: `${TWLocale.showTime}`,
-        });
+
+        // 利用 userId 取得新加入者的資料，要加入聊天室清單
+        try {
+          const response = await user.getUserInfo(userId);
+
+          if (response.statusText !== "OK") {
+            throw new Error(response.statusText);
+          }
+
+          const userData = { ...response.data };
+
+          // 避免重複加入相同使用者資料
+          if (!this.attendees.some((attendee) => attendee.id === userData.id)) {
+            this.attendees.push({
+              avatar: userData.avatar,
+              name: userData.name,
+              account: userData.account,
+              id: userData.id,
+            });
+          }
+
+          this.msgs.push({
+            text: `${userData.name}加入聊天`,
+            type: "connection",
+            time: `${TWLocale.showTime}`,
+          });
+        } catch (error) {
+          console.log("error", error);
+        }
       });
 
       // 監聽公開聊天室使用者下線訊息
       this.socket.on("public-offline-notice", (userId) => {
-        console.log(userId, "left room");
-        const leftAttendee = this.attendees.find((user) => user.id === userId);
+        const userIdtoN = Number(userId);
+        const leftAttendee = this.attendees.find(
+          (user) => user.id === userIdtoN
+        );
 
-        this.attendees = this.attendees.filter((user) => user.id !== userId);
         this.msgs.push({
           text: `${leftAttendee.name}離開聊天室`,
           type: "connection",
           time: `${TWLocale.showTime}`,
         });
+
+        this.attendees = this.attendees.filter((user) => user.id !== userIdtoN);
+        console.log(userId, "left room");
       });
 
       // 監聽公開聊天室聊天訊息
       this.socket.on("public-msg", ({ userId, message }) => {
-        console.log("userId, message", userId, message);
+        console.log("userId: ", userId, " ,message: ", message);
         this.msgs.push({
           text: `${message}`,
           type: "msg-in",
@@ -408,19 +429,14 @@ export default {
       console.log(`socket started listening!`);
     },
     socketEnd() {
+      this.socket.on("disconnect", (reason) => {
+        console.log("socket has disconnected for:", reason);
+      });
       this.socket.disconnect();
-      console.log("socket has disconnected");
-    },
-  },
-  watch: {
-    attendees() {
-      const newAttendee = this.attendees.find(
-        (user) => user.id === this.newComerId
-      );
-      this.msgs.push({
-        text: `${newAttendee.name}加入聊天`,
-        type: "connection",
-        time: `${TWLocale.showTime}`,
+
+      Toast.fire({
+        position: "top",
+        title: "離開公開聊天室",
       });
     },
   },
@@ -433,10 +449,6 @@ export default {
   },
   beforeDestroy() {
     this.socketEnd(); // 離開聊天室頁面則停止嘗試 reconnect
-    Toast.fire({
-      position: "top",
-      title: "離開公開聊天室",
-    });
   },
 };
 </script>

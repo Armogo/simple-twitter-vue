@@ -99,7 +99,7 @@
             通知
           </span>
           <!-- TODO 通知功能開發中 -->
-          <span style="margin-left: 0px; color: #c9c7c7"> (開發中) </span>
+          <span style="margin-left: 0px; color: #c9c7c7"> (待開發) </span>
         </div></router-link
       >
       <!-- 公開聊天室 -->
@@ -131,7 +131,7 @@
               color: $route.name === 'publicChatRoom' ? '#FF6600' : '#000000',
             }"
           >
-            公開聊天室
+            公開聊天室 (測試中)
           </span>
         </div>
       </router-link>
@@ -169,7 +169,7 @@
             私人訊息
           </span>
           <!-- TODO 私人訊息功能開發中 -->
-          <span style="margin-left: 0px; color: #c9c7c7"> (開發中) </span>
+          <span style="margin-left: 0px; color: #c9c7c7"> (待開發) </span>
         </div>
       </router-link>
       <router-link to="/profile">
