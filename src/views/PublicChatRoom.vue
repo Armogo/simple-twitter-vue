@@ -279,11 +279,7 @@ export default {
       // userId: Number(localStorage.getItem("user")),
       userId: localStorage.getItem("user"),
       userData: {},
-      msgs: [
-        { text: "I came", type: "connection", time: `${TWLocale.showTime}` },
-        { text: "I saw", type: "msg-in", time: `${TWLocale.showTime}` },
-        { text: "Icecream", type: "msg-out", time: `${TWLocale.showTime}` },
-      ],
+      msgs: [],
       newMsg: "",
       attendees: [],
       // 連線至socket server
