@@ -132,5 +132,5 @@ export const TWLocale = {
       doy: 4, // The week that contains Jan 4th is the first week of the year.
     },
   }),
-  showTime: moment().format("h:mm a"),
+  formatTime: moment().format("h:mm a"),
 };
