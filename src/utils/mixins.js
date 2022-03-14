@@ -122,7 +122,7 @@ export const TWLocale = {
       d: "1 天",
       dd: "%d 天",
       M: "1 個月",
-      MM: "%d 个月",
+      MM: "%d 個月",
       y: "1 年",
       yy: "%d 年",
     },
