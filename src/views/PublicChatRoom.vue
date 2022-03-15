@@ -431,7 +431,6 @@ export default {
       this.socket.disconnect();
 
       Toast.fire({
-        position: "top",
         title: "離開公開聊天室",
       });
     },

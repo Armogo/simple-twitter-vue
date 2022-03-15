@@ -399,7 +399,6 @@ export default {
         }
         Toast.fire({
           icon: "success",
-          position: "top",
           title: "已更新資料",
         });
       } catch (error) {

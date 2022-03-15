@@ -246,7 +246,6 @@ export default {
         ) {
           Toast.fire({
             icon: "warning",
-            position: "top",
             title: "請填寫完整資料",
           });
           return;
@@ -275,7 +274,6 @@ export default {
 
         Toast.fire({
           icon: "success",
-          position: "top",
           title: "註冊成功!",
         });
         // 成功註冊後轉址到登入頁
@@ -290,12 +288,10 @@ export default {
           ? Toast.fire({
               icon: "warning",
               title: `${error.response.data.replace("account", "帳號")}`,
-              position: "top",
             })
           : Toast.fire({
               icon: "warning",
               title: `${error.response.data}`,
-              position: "top",
             });
         console.log("error", error.response || error);
       }

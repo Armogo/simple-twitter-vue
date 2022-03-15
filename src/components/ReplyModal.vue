@@ -304,7 +304,6 @@ export default {
           return Toast.fire({
             icon: "warning",
             title: "內容不可空白",
-            position: "top",
           });
         }
 
@@ -323,7 +322,6 @@ export default {
         Toast.fire({
           icon: "warning",
           title: "請稍後再試",
-          position: "top",
         });
       }
     },

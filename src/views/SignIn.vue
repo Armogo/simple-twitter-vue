@@ -260,7 +260,6 @@ export default {
           this.password = "";
           return Toast.fire({
             icon: "warning",
-            position: "top",
             title: "請透過後台登入",
             showConfirmButton: true,
             confirmButtonText: "後臺登入",
@@ -309,19 +308,16 @@ export default {
         if (error.response.data.message === "no such user found") {
           Toast.fire({
             icon: "warning",
-            position: "top",
             title: "無此帳號",
           });
         } else if (error.response.data.message === "passwords did not match") {
           Toast.fire({
             icon: "warning",
-            position: "top",
             title: "密碼錯誤",
           });
         } else {
           Toast.fire({
             icon: "warning",
-            position: "top",
             title: "抱歉，目前無法登入，請稍後再試",
           });
         }

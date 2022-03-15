@@ -13,7 +13,7 @@ export const apiHelper = axios.create({
 
 export const Toast = Swal.mixin({
   toast: true,
-  position: "top-end",
+  position: "top",
   showConfirmButton: false,
   timer: 3000,
 });
@@ -23,7 +23,6 @@ export function keepUnauthorizedOut(VueComponent) {
   if (!localStorage.getItem("token")) {
     Toast.fire({
       icon: "warning",
-      position: "top",
       title: "請先登入",
     });
     VueComponent.$router.push("/");

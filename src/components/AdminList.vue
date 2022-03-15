@@ -150,7 +150,6 @@ export default {
         Toast.fire({
           icon: "warning",
           title: "伺服器忙碌，請稍後再試",
-          position: "top",
         });
       }
     },

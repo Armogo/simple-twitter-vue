@@ -213,7 +213,6 @@ export default {
       if (this.password.includes(" ")) {
         return Toast.fire({
           icon: "warning",
-          position: "top",
           title: "不接受空白鍵",
         });
       }
@@ -241,7 +240,6 @@ export default {
 
         Toast.fire({
           icon: "success",
-          position: "top",
           title: "資料更改成功",
         });
         this.password = "";
