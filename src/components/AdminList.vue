@@ -39,12 +39,20 @@ img {
 }
 
 .tweets-list {
+  flex-basis: 1062px;
+  height: 100vh;
+  overflow: clip scroll;
   font-family: "Noto Sans TC", sans-serif;
   font-style: normal;
   font-weight: bold;
   color: #1c1c1c;
+
+  * {
+    box-sizing: border-box;
+  }
+
   header {
-    border-bottom: 1px solid #e6ecf0;
+    border-block: 1px solid #e6ecf0;
     border-left: 1px solid #e6ecf0;
     font-weight: 900;
     font-size: 18px;
@@ -56,6 +64,9 @@ img {
     border-bottom: 1px solid #e6ecf0;
     border-left: 1px solid #e6ecf0;
     display: flex;
+    word-break: break-word;
+    overflow-wrap: break-word;
+
     img {
       width: 50px;
       height: 50px;
@@ -82,9 +93,15 @@ img {
     .delete {
       position: absolute;
       top: 15px;
-      left: 96%;
+      right: 5px;
       cursor: pointer;
     }
+  }
+}
+
+@media all and (max-width: 768px) {
+  .tweets-list {
+    height: calc(100vh - 31px);
   }
 }
 </style>

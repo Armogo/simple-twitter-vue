@@ -29,57 +29,74 @@
 .a-tweet-container {
   border-right: 1px solid #e6ecf0;
   border-left: 1px solid #e6ecf0;
-}
-.a-tweet {
-  border-bottom: 1px solid #e6ecf0;
-  font-family: "Noto Sans TC", sans-serif;
-  font-style: normal;
-  font-weight: 700;
-  font-size: 15px;
-  color: #1c1c1c;
-  position: relative;
-  top: 50px;
-  max-width: 600px;
-  min-height: 121px;
-  margin-top: 10px;
-  padding: 0px 15px;
-  display: flex;
-  .avatar {
-    width: 50px;
-    height: 50px;
-    background: #c4c4c4;
-    border-radius: 50%;
-    margin: 3px 0px 83px 0px;
-  }
+  height: 700px;
+  overflow-y: scroll;
 
-  .content {
-    margin-left: 10px;
+  .a-tweet {
+    border-bottom: 1px solid #e6ecf0;
+    font-family: "Noto Sans TC", sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    color: #1c1c1c;
+    max-width: 600px;
+    min-height: 121px;
+    margin-top: 10px;
+    padding: 0px 15px;
     display: flex;
-    flex-direction: column;
-    .name-account {
+    .avatar {
+      width: 50px;
+      height: 50px;
+      background: #c4c4c4;
+      border-radius: 50%;
+      margin: 3px 0px 83px 0px;
+    }
+
+    .content {
+      margin-left: 10px;
+      flex: 1;
       display: flex;
-      .name {
-        margin: auto 5px auto 0px;
+      flex-direction: column;
+      .name-account {
+        display: flex;
+        .name {
+          margin: auto 5px auto 0px;
+        }
+        .account {
+          font-weight: 500;
+          color: #657786;
+        }
       }
-      .account {
+      .replied-account {
+        display: flex;
         font-weight: 500;
         color: #657786;
+        .at-account {
+          color: #ff6600;
+          margin-left: 5px;
+        }
       }
-    }
-    .replied-account {
-      display: flex;
-      font-weight: 500;
-      color: #657786;
-      .at-account {
-        color: #ff6600;
-        margin-left: 5px;
-      }
-    }
 
-    .description {
-      min-height: 66px;
-      font-weight: 500;
-      margin: 3px 0px 15px 0px;
+      .description {
+        min-height: 66px;
+        font-weight: 500;
+        margin: 3px 0px 15px 0px;
+        word-break: break-word;
+      }
+    }
+  }
+}
+
+@media all and (max-width: 768px) {
+  .a-tweet-container {
+    .a-tweet {
+      max-width: unset;
+
+      .content {
+        .replies-likes {
+          justify-content: space-around;
+        }
+      }
     }
   }
 }

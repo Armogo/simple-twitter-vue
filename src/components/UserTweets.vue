@@ -85,65 +85,79 @@
 .a-tweet-container {
   border-right: 1px solid #e6ecf0;
   border-left: 1px solid #e6ecf0;
-  position: relative;
-  top: 60px;
-}
-.a-tweet {
-  border-bottom: 1px solid #e6ecf0;
-  font-family: "Noto Sans TC", sans-serif;
-  font-style: normal;
-  font-weight: 700;
-  font-size: 15px;
-  color: #1c1c1c;
-  min-height: 136px;
-  margin-top: 10px;
-  padding: 0px 15px;
-  display: flex;
-  .avatar {
-    width: 50px;
-    height: 50px;
-    background: #c4c4c4;
-    border-radius: 50%;
-    margin: 3px 0px 83px 0px;
-  }
+  width: 100%;
+  height: 700px;
+  overflow-y: scroll;
 
-  .content {
-    margin-left: 10px;
+  .a-tweet {
+    border-bottom: 1px solid #e6ecf0;
+    font-family: "Noto Sans TC", sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    color: #1c1c1c;
+    min-height: 136px;
+    margin-top: 10px;
+    padding: 0px 15px;
     display: flex;
-    flex-direction: column;
-    .name-account {
-      display: flex;
-      .name {
-        margin: auto 5px auto 0px;
-      }
-      .account {
-        font-weight: 500;
-        color: #657786;
-      }
+    .avatar {
+      width: 50px;
+      height: 50px;
+      background: #c4c4c4;
+      border-radius: 50%;
+      margin: 3px 0px 83px 0px;
     }
 
-    .description {
-      min-height: 66px;
-      font-weight: 500;
-      margin: 3px 0px 15px 0px;
-    }
-
-    .replies-likes {
+    .content {
+      margin-left: 10px;
       display: flex;
-      font-weight: 500;
-      font-size: 13px;
-      color: #657786;
-      .replies,
-      .likes {
+      flex-direction: column;
+      .name-account {
         display: flex;
-        margin-right: 52px;
-        .replies-icon,
-        .likes-icon {
-          margin-right: 12px;
+        .name {
+          margin: auto 5px auto 0px;
         }
-        // .likes-num {
-        //   color: #e0245e;
-        // }
+        .account {
+          font-weight: 500;
+          color: #657786;
+        }
+      }
+
+      .description {
+        min-height: 66px;
+        font-weight: 500;
+        margin: 3px 0px 15px 0px;
+        word-break: break-word;
+      }
+
+      .replies-likes {
+        display: flex;
+        font-weight: 500;
+        font-size: 13px;
+        color: #657786;
+        .replies,
+        .likes {
+          display: flex;
+          margin-right: 52px;
+          .replies-icon,
+          .likes-icon {
+            margin-right: 12px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media all and (max-width: 768px) {
+  .a-tweet-container {
+    .a-tweet {
+      .content {
+        flex: 1;
+
+        .replies-likes {
+          justify-content: space-around;
+        }
       }
     }
   }
