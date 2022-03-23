@@ -23,4 +23,4 @@ git commit -m 'deploy'
 # git push -f https://github.com/<USERNAME>/<REPO>.git main:gh-pages
 git push -f https://github.com/Armogo/simple-twitter-vue.git main:gh-pages
 
-cd -
+cd ..
