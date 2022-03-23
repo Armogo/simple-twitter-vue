@@ -64,87 +64,101 @@
 </template>
 
 <style lang="scss" scoped>
-.setting {
-  position: absolute;
-  left: 378px;
-  height: 100%;
-  bottom: 0px;
-  border-left: 1px solid #e6ecf0;
-  margin-left: 65px;
-  padding-left: 16px;
+.home {
+  display: flex;
 
-  header {
-    padding: 13px 0px 14px 20px;
-    font-family: Noto Sans TC;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 19px;
-    line-height: 28px;
-  }
-  .form-container {
-    text-align: center;
-    padding-left: 16px;
+  .setting {
+    border-left: 1px solid #e6ecf0;
+    flex-basis: 600px;
 
-    #setting-form {
-      .input-wrapper {
-        margin: 0% auto 30px auto;
-        width: 540px;
-        position: relative;
-
-        span {
-          position: absolute;
-          left: 10px;
-          top: 5px;
-          font-family: Noto Sans TC;
-          font-style: normal;
-          font-weight: 500;
-          font-size: 15px;
-          line-height: 15px;
-          color: #657786;
-        }
-        input {
-          // 取消預設style
-          all: unset;
-
-          text-align: start;
-          padding-left: 10px;
-          padding-top: 10px;
-          width: calc(540px - 10px);
-          height: calc(52px - 10px);
-          background: #f5f8fa;
-          border-radius: 0px 0px 4px 4px;
-        }
-        hr {
-          margin: 0%;
-          height: 2px;
-          background-color: #657786;
-          border-right: unset;
-          border-left: unset;
-          border-bottom: unset;
-          border-radius: 0px 0px 4px 4px;
-        }
-        // input focus 底下那條線的style
-        .now-focus {
-          background-color: #50b5ff;
-        }
-      }
+    * {
+      box-sizing: border-box;
     }
-    button {
-      // 取消預設style,
-      all: unset;
 
-      margin-top: 10px;
-      padding: 10px 252px;
-      background: #ff6600;
-      border-radius: 50px;
+    header {
+      border-bottom: 1px solid #e6ecf0;
+      margin-bottom: 30px;
+      padding: 13px 0px 14px 20px;
       font-family: Noto Sans TC;
       font-style: normal;
       font-weight: bold;
-      font-size: 18px;
-      color: #ffffff;
-      line-height: 26px;
-      cursor: pointer;
+      font-size: 19px;
+      line-height: 28px;
     }
+    .form-container {
+      padding: 0 16px;
+
+      #setting-form {
+        .input-wrapper {
+          margin: 0% auto 30px auto;
+
+          background: #f5f8fa;
+
+          span {
+            position: relative;
+            left: 10px;
+            top: 5px;
+            display: block;
+            font-family: Noto Sans TC;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 15px;
+            line-height: 15px;
+            color: #657786;
+          }
+          input {
+            // 取消預設style
+            all: unset;
+
+            text-align: start;
+            padding-left: 10px;
+            padding-top: 10px;
+
+            width: 100%;
+            height: calc(52px - 10px);
+
+            border-radius: 0px 0px 4px 4px;
+          }
+          hr {
+            margin: 0%;
+            height: 2px;
+            background-color: #657786;
+            border-right: unset;
+            border-left: unset;
+            border-bottom: unset;
+            border-radius: 0px 0px 4px 4px;
+          }
+          // input focus 底下那條線的style
+          .now-focus {
+            background-color: #50b5ff;
+          }
+        }
+      }
+      button {
+        // 取消預設style,
+        all: unset;
+
+        display: block;
+        margin-bottom: 17px;
+        margin-left: auto;
+        padding: 10px 40px;
+        background: #ff6600;
+        border-radius: 50px;
+        font-family: Noto Sans TC;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 18px;
+        color: #ffffff;
+        line-height: 26px;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+@media all and (max-width: 768px) {
+  .home {
+    display: block;
   }
 }
 </style>
@@ -213,7 +227,6 @@ export default {
       if (this.password.includes(" ")) {
         return Toast.fire({
           icon: "warning",
-          position: "top",
           title: "不接受空白鍵",
         });
       }
@@ -241,7 +254,6 @@ export default {
 
         Toast.fire({
           icon: "success",
-          position: "top",
           title: "資料更改成功",
         });
         this.password = "";

@@ -110,12 +110,11 @@ import {
   keepUnauthorizedOut,
   roleAccessControl,
 } from "./../utils/helpers";
-// import axios from "axios";
+import { io } from "socket.io-client";
 
 const getToken = () => localStorage.getItem("token");
 // 連線到heroku
-// const socket = io("https://actwitter.herokuapp.com");
-// const getUserId = () => localStorage.getItem("user");
+const getUserId = () => Number(localStorage.getItem("user"));
 // TODO 送出user id 被拒絕了
 // socket.emit("connectServer", getUserId());
 // 聊天室資訊
@@ -137,6 +136,8 @@ export default {
   data() {
     return {
       users: [],
+      // 連線至socket server
+      socket: io("https://actwitter.herokuapp.com")
     };
   },
   methods: {
@@ -153,14 +154,14 @@ export default {
           throw new Error(data.message);
         }
 
-        // this.users = data;
+        this.users = data;
       } catch (error) {
         console.log(error);
       }
     },
     // TODO 加入私人房間
     join() {
-      socket.emit("join-room", { roomId: "2" });
+      // this.socket.emit("join-room", { roomId: "2" });
     },
   },
   created() {

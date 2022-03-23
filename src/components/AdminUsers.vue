@@ -59,10 +59,18 @@ svg {
 }
 
 .users-list {
+  flex-basis: 1062px;
+  flex-grow: 1;
+  height: 100vh;
   font-family: "Noto Sans TC", sans-serif;
   font-style: normal;
   font-weight: bold;
   color: #1c1c1c;
+
+  * {
+    box-sizing: border-box;
+  }
+
   header {
     border-bottom: 1px solid #e6ecf0;
     border-left: 1px solid #e6ecf0;
@@ -74,9 +82,10 @@ svg {
     border-left: 1px solid #e5e5e5;
     display: flex;
     flex-wrap: wrap;
-    align-content: flex-start;
-    min-height: 1145px;
+    height: calc(100% - 57px);
+    overflow: clip scroll;
     padding: 7.5px;
+
     .user-card {
       position: relative;
       width: 245px;
@@ -153,6 +162,16 @@ svg {
           margin-right: 5px;
         }
       }
+    }
+  }
+}
+
+@media all and (max-width: 768px) {
+  .users-list {
+    height: calc(100vh - 31px);
+
+    .container {
+      justify-content: space-around;
     }
   }
 }

@@ -125,7 +125,7 @@
           text-align: start;
           padding-left: 10px;
           padding-top: 10px;
-          width: calc(540px - 10px);
+          width: calc(100% - 10px);
           height: calc(52px - 10px);
           background: #f5f8fa;
           border-radius: 0px 0px 4px 4px;
@@ -164,8 +164,8 @@
   }
 
   .footer {
-    width: 540px;
-    margin: 20px auto 0% auto;
+    max-width: 540px;
+    margin: 20px auto;
     text-align: end;
 
     .sign-in {
@@ -175,6 +175,32 @@
       font-weight: bold;
       font-size: 18px;
       line-height: 26px;
+    }
+  }
+}
+
+@media all and (max-width: 768px) {
+  $small-width: calc(100% - 2em);
+  .container {
+    .header {
+      margin-top: 20px;
+    }
+
+    .form-container {
+      #sign-in-form {
+        .input-wrapper {
+          width: $small-width;
+        }
+      }
+
+      button {
+        padding: 10px 0;
+        width: $small-width;
+      }
+    }
+
+    .footer {
+      width: $small-width;
     }
   }
 }
@@ -238,7 +264,6 @@ export default {
         // 顯示錯誤提示
         Toast.fire({
           icon: "warning",
-          position: "top",
           title: "請確認您輸入了正確的帳號密碼",
         });
 

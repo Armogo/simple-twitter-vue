@@ -1,5 +1,5 @@
 <template>
-  <div class="container scrollbar">
+  <div class="container">
     <div class="tweet-card" v-for="reply in tweetData.replies" :key="reply.id">
       <div class="thumbnail-container">
         <img
@@ -34,10 +34,14 @@
 <style lang="scss" scoped>
 .container {
   margin: 0% auto;
-  margin-top: 6px;
-  width: 603px;
+
   max-height: 747px;
   overflow-y: scroll;
+
+  * {
+    box-sizing: border-box;
+  }
+
   .tweet-card {
     display: flex;
     padding: 15px 0% 15px 15px;
@@ -120,14 +124,26 @@
     }
   }
 }
-// 客製 container 的 scrollbar
-.scrollbar {
-  &::-webkit-scrollbar {
-    width: 1px;
-  }
-  &::-webkit-scrollbar-thumb {
-    border-radius: 3px;
-    background-color: none;
+
+@media all and (max-width: 768px) {
+  .container {
+    margin: 0;
+    width: 100%;
+    max-height: 55vh;
+
+    .tweet-card {
+      padding: 10px;
+
+      .right-content {
+        .reply-container {
+          margin-top: 3px;
+        }
+
+        .description {
+          margin: 3px 0 0 0;
+        }
+      }
+    }
   }
 }
 </style>

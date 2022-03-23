@@ -12,7 +12,7 @@
         id=""
         maxlength="140"
         placeholder="有什麼新鮮事?"
-        class="scrollbar"
+        class=""
         v-model="newPostContent"
       ></textarea>
       <div class="button-area">
@@ -48,12 +48,8 @@
     border-top: 1px solid #e6ecf0;
     height: 120px;
     .thumbnail-container {
-      position: relative;
-      width: 50px;
       margin-left: 15px;
       img {
-        position: absolute;
-        top: 10px;
         border-radius: 50%;
         width: 50px;
         height: 50px;
@@ -61,7 +57,7 @@
       }
     }
     textarea {
-      width: calc(510px - 66px);
+      width: 100%;
       height: 3rem;
       margin-top: 20px;
       margin-left: 10px;
@@ -91,8 +87,10 @@
     .button-area {
       display: flex;
       flex-direction: column;
-      justify-content: end;
+      justify-content: flex-end;
       text-align: center;
+      margin-left: auto;
+      margin-right: 15px;
       .word-count {
         width: 100%;
         margin-bottom: 3px;
@@ -119,16 +117,6 @@
     }
   }
 }
-// 客製 textarea 的 scrollbar
-.scrollbar {
-  &::-webkit-scrollbar {
-    width: 3px;
-  }
-  &::-webkit-scrollbar-thumb {
-    border-radius: 3px;
-    background-color: rgba(0, 0, 0, 0.1);
-  }
-}
 </style>
 
 <script>
@@ -152,14 +140,12 @@ export default {
     async newTweet() {
       if (this.newPostContent.trim().length < 1) {
         return Toast.fire({
-          position: "top",
           width: "26rem",
           icon: "warning",
           title: "內容不可空白",
         });
       } else if (this.newPostContent.length > 140) {
         return Toast.fire({
-          position: "top",
           icon: "warning",
           title: "推文字數140字以內",
         });
@@ -174,7 +160,6 @@ export default {
         }
         Toast.fire({
           icon: "success",
-          position: "top",
           title: "成功發送推文",
         });
         this.newPostContent = "";

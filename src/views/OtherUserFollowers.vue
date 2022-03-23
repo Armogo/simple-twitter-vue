@@ -96,130 +96,161 @@
 </template>
 
 <style lang="scss" scoped>
-.user-self {
-  border-left: 1px solid #e5e5e5;
-  border-right: 1px solid #e5e5e5;
-  width: 600px;
-  margin: 0 0 0 calc(113px + 235px + 30px);
-  header {
-    height: 55px;
-    display: flex;
-    font-family: "Noto Sans TC", sans-serif;
-    font-style: normal;
-    .icon-back {
-      margin: 20px;
-    }
-    .name-tweets {
-      margin: 6px 20px;
-      .name {
-        font-size: 19px;
-        font-weight: 900;
-        color: #1c1c1c;
-      }
-      .tweets {
-        font-weight: 500;
-        font-size: 13px;
-        color: #657786;
-      }
-    }
-  }
+.user {
+  display: flex;
 
-  .user-self-tabs {
-    border-bottom: 1px solid #e6ecf0;
-    position: relative;
-    display: flex;
-    font-family: "Noto Sans TC", sans-serif;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 15px;
-    color: #657786;
-    .followers,
-    .followings {
-      width: 130px;
-      height: 54px;
+  .user-self {
+    border-left: 1px solid #e5e5e5;
+    border-right: 1px solid #e5e5e5;
+    width: 600px;
+    margin: 0 0 0 min(15px, 1vw);
+
+    header {
+      height: 55px;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-    }
-    .active {
-      border-bottom: 2px solid #ff6600;
-      color: #ff6600;
-    }
-  }
-
-  .followers-card {
-    font-family: "Noto Sans TC", sans-serif;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 15px;
-    color: #1c1c1c;
-    min-height: 136px;
-    .a-card {
-      display: flex;
-      border-bottom: 1px solid #e6ecf0;
-      padding: 10px 15px;
-      .avatar {
-        width: 50px;
-        height: 50px;
-        background: #c4c4c4;
-        border-radius: 50%;
-        margin: 3px 0px 83px 0px;
+      font-family: "Noto Sans TC", sans-serif;
+      font-style: normal;
+      .icon-back {
+        margin: 20px;
       }
-
-      .left {
-        display: flex;
-        flex-direction: column;
-        margin-left: 10px;
-        width: 100%;
-        align-content: space-around;
-        .top {
-          display: flex;
-          width: 100%;
-          justify-content: space-between;
-          align-items: center;
-          .name-account {
-            display: flex;
-            flex-direction: column;
-            .account {
-              font-weight: 500;
-              color: #657786;
-            }
-          }
-          .btn {
-            cursor: pointer;
-            .following-btn {
-              padding: 0px 15px;
-              background: #ff6600;
-              border: 1px solid #ff6600;
-              box-sizing: border-box;
-              border-radius: 100px;
-              color: #ffffff;
-
-              display: flex;
-              flex-direction: row;
-              justify-content: center;
-              align-items: center;
-            }
-            .unfollowing-btn {
-              padding: 0px 15px;
-              border: 1px solid #ff6600;
-              box-sizing: border-box;
-              border-radius: 100px;
-              color: #ff6600;
-
-              display: flex;
-              flex-direction: row;
-              justify-content: center;
-              align-items: center;
-            }
-          }
+      .name-tweets {
+        margin: 6px 20px;
+        .name {
+          font-size: 19px;
+          font-weight: 900;
+          color: #1c1c1c;
         }
-        .content {
-          margin-top: 5px;
+        .tweets {
+          font-weight: 500;
+          font-size: 13px;
+          color: #657786;
+        }
+      }
+    }
+
+    .user-self-tabs {
+      border-bottom: 1px solid #e6ecf0;
+      position: relative;
+      display: flex;
+      font-family: "Noto Sans TC", sans-serif;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 15px;
+      color: #657786;
+      .followers,
+      .followings {
+        width: 130px;
+        height: 54px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+      .active {
+        border-bottom: 2px solid #ff6600;
+        color: #ff6600;
+      }
+    }
+
+    .followers-card {
+      font-family: "Noto Sans TC", sans-serif;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 15px;
+      color: #1c1c1c;
+      min-height: 136px;
+      max-height: 1099px;
+      overflow-y: scroll;
+
+      .a-card {
+        display: flex;
+        border-bottom: 1px solid #e6ecf0;
+        padding: 10px 15px;
+        .avatar {
+          width: 50px;
+          height: 50px;
+          background: #c4c4c4;
+          border-radius: 50%;
+          margin: 3px 0px 83px 0px;
+        }
+
+        .left {
           display: flex;
           flex-direction: column;
+          margin-left: 10px;
+          width: 100%;
+          align-content: space-around;
+          .top {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            align-items: center;
+            .name-account {
+              display: flex;
+              flex-direction: column;
+              .account {
+                font-weight: 500;
+                color: #657786;
+              }
+            }
+            .btn {
+              cursor: pointer;
+              .following-btn {
+                padding: 0px 15px;
+                background: #ff6600;
+                border: 1px solid #ff6600;
+                box-sizing: border-box;
+                border-radius: 100px;
+                color: #ffffff;
+
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+              }
+              .unfollowing-btn {
+                padding: 0px 15px;
+                border: 1px solid #ff6600;
+                box-sizing: border-box;
+                border-radius: 100px;
+                color: #ff6600;
+
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+              }
+            }
+          }
+          .content {
+            margin-top: 5px;
+            display: flex;
+            flex-direction: column;
+          }
         }
+      }
+    }
+  }
+}
+
+@media all and (max-width: 768px) {
+  .user {
+    display: block;
+
+    .user-self {
+      width: 100%;
+      margin: 0;
+
+      * {
+        box-sizing: border-box;
+      }
+
+      .user-self-tabs {
+        justify-content: space-around;
+      }
+
+      .followers-card {
+        max-height: 80vh;
       }
     }
   }

@@ -13,35 +13,34 @@ export const apiHelper = axios.create({
 
 export const Toast = Swal.mixin({
   toast: true,
-  position: "top-end",
+  position: "top",
   showConfirmButton: false,
   timer: 3000,
 });
 
 // 阻擋未登入的使用者透過修改網址進入特定頁面
-export function keepUnauthorizedOut(VueComponet) {
+export function keepUnauthorizedOut(VueComponent) {
   if (!localStorage.getItem("token")) {
     Toast.fire({
       icon: "warning",
-      position: "top",
       title: "請先登入",
     });
-    VueComponet.$router.push("/");
+    VueComponent.$router.push("/");
     throw new Error("Please sign in first");
   }
 }
 
-export function roleAccessControl(VueComponet, role) {
+export function roleAccessControl(VueComponent, role) {
   const getRole = localStorage.getItem("role");
 
   if (!getRole) {
-    VueComponet.$router.push("/");
-    throw "Please sign in first";
+    VueComponent.$router.push("/");
+    throw new Error("Please sign in first");
   }
 
   if (getRole !== role) {
     // "10550" stands for admin, "8347" stands for user
-    VueComponet.$router.back();
-    throw "No access";
+    VueComponent.$router.back();
+    throw new Error("No access");
   }
 }

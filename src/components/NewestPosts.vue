@@ -1,5 +1,5 @@
 <template>
-  <div class="container scrollbar">
+  <div class="container">
     <div class="tweet-card" v-for="tweet in initialTweets" :key="tweet.id">
       <div class="thumbnail-container" @click="toOneUser(tweet)">
         <img :src="tweet.user.avatar" alt="" />
@@ -91,13 +91,10 @@
     border-right: none;
     border-left: none;
     .thumbnail-container {
-      position: relative;
       width: 50px;
       margin-left: 15px;
 
       img {
-        position: absolute;
-        top: 10px;
         border-radius: 50%;
         width: 50px;
         height: 50px;
@@ -149,6 +146,7 @@
       .description {
         margin: 6px 15px 14px 0px;
         cursor: pointer;
+        word-break: break-word;
       }
       .icon-wrapper {
         display: flex;
@@ -182,16 +180,6 @@
         }
       }
     }
-  }
-}
-// 客製 container 的 scrollbar
-.scrollbar {
-  &::-webkit-scrollbar {
-    width: 1px;
-  }
-  &::-webkit-scrollbar-thumb {
-    border-radius: 3px;
-    background-color: none;
   }
 }
 </style>

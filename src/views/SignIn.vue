@@ -89,6 +89,10 @@
 
 <style lang="scss" scoped>
 .container {
+  * {
+    box-sizing: border-box;
+  }
+
   .header {
     margin-bottom: 40px;
     margin-top: 65px;
@@ -114,7 +118,7 @@
     #sign-in-form {
       .input-wrapper {
         margin: 0% auto 30px auto;
-        width: 540px;
+        max-width: 540px;
         position: relative;
 
         span {
@@ -135,7 +139,7 @@
           text-align: start;
           padding-left: 10px;
           padding-top: 10px;
-          width: calc(540px - 10px);
+          width: calc(100% - 10px);
           height: calc(52px - 10px);
           background: #f5f8fa;
           border-radius: 0px 0px 4px 4px;
@@ -174,8 +178,8 @@
   }
 
   .footer {
-    width: 540px;
-    margin: 20px auto 0% auto;
+    max-width: 540px;
+    margin: 20px auto;
     text-align: end;
 
     .sign-up {
@@ -203,6 +207,33 @@
       font-weight: bold;
       font-size: 18px;
       line-height: 26px;
+    }
+  }
+}
+
+@media all and (max-width: 768px) {
+  $small-width: calc(100% - 2em);
+
+  .container {
+    .header {
+      margin-top: 20px;
+    }
+
+    .form-container {
+      #sign-in-form {
+        .input-wrapper {
+          width: $small-width;
+        }
+      }
+
+      button {
+        padding: 10px 0;
+        width: $small-width;
+      }
+    }
+
+    .footer {
+      width: $small-width;
     }
   }
 }
@@ -237,6 +268,12 @@ export default {
 
         this.isProcessing = true;
 
+        Toast.fire({
+          title: "登入中，請稍後",
+          timer: undefined,
+          didOpen: () => Toast.showLoading(),
+        });
+
         const response = await authorizationAPI.signIn({
           email: this.email,
           password: this.password,
@@ -254,8 +291,18 @@ export default {
           this.password = "";
           return Toast.fire({
             icon: "warning",
-            position: "top",
             title: "請透過後台登入",
+            showConfirmButton: true,
+            confirmButtonText: "後臺登入",
+            confirmButtonColor: "#2775e3",
+            showDenyButton: true,
+            denyButtonText: "取消",
+            denyButtonColor: "#84878c",
+            timer: undefined,
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.$router.push({ name: "signin-admin" });
+            }
           });
         }
 
@@ -265,8 +312,26 @@ export default {
         // 給予 role 代號，判斷頁面觀看權限
         localStorage.setItem("role", "8347");
 
+        // 關閉 Toast loader
+        Toast.close();
+
         // 成功登入後轉址到首頁
         this.$router.push("/main");
+
+        // 登入成功的訊息
+        const d = new Date();
+        const hourNow = d.getHours();
+        const greeting =
+          (await hourNow) <= 12
+            ? `早安 ${data.user.name}`
+            : hourNow <= 17
+            ? `午安 ${data.user.name}`
+            : `晚安 ${data.user.name}`;
+
+        Toast.fire({
+          icon: "success",
+          title: greeting,
+        });
       } catch (error) {
         // 將密碼欄位清空
         this.password = "";
@@ -274,19 +339,16 @@ export default {
         if (error.response.data.message === "no such user found") {
           Toast.fire({
             icon: "warning",
-            position: "top",
             title: "無此帳號",
           });
         } else if (error.response.data.message === "passwords did not match") {
           Toast.fire({
             icon: "warning",
-            position: "top",
             title: "密碼錯誤",
           });
         } else {
           Toast.fire({
             icon: "warning",
-            position: "top",
             title: "抱歉，目前無法登入，請稍後再試",
           });
         }

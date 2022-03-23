@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="one-tweet-container">
     <header>
       <svg
         @click="$router.back()"
@@ -105,11 +105,10 @@
 </template>
 
 <style lang="scss" scoped>
-.container {
-  margin: -7px auto;
-  width: 600px;
+.one-tweet-container {
   border: 1px solid #e6ecf0;
   border-top: none;
+
   header {
     display: flex;
     margin-bottom: 15px;
@@ -165,7 +164,6 @@
     .card-body {
       margin: 0% 0% 0% 15px;
       .description {
-        width: 510px;
         margin: 15px 0%;
         font-family: Noto Sans TC;
         font-style: normal;
@@ -173,6 +171,7 @@
         font-size: 23px;
         line-height: 34px;
         text-align: justify;
+        word-break: break-word;
       }
       .time {
         font-family: Noto Sans TC;
@@ -214,6 +213,38 @@
 
       .like-icon-wrapper {
         margin-left: 155.13px;
+      }
+    }
+  }
+}
+
+@media all and (max-width: 768px) {
+  .one-tweet-container {
+    margin: 0;
+    width: 100%;
+
+    * {
+      box-sizing: border-box;
+    }
+
+    .tweet-card {
+      .card-body {
+        margin: 0;
+        padding: 10px 0 0 10px;
+        .description {
+          width: 100%;
+          margin: 0 0 15px 0;
+          padding-right: 10px;
+          max-height: 35vh;
+          overflow-y: scroll;
+        }
+      }
+      .card-footer {
+        margin: 10px 10px 0 10px;
+        padding: 10px 0;
+      }
+      .icon-wrapper {
+        justify-content: space-around;
       }
     }
   }

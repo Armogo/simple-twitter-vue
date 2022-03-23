@@ -102,6 +102,9 @@
 
 <style lang="scss" scoped>
 .container {
+  height: 100vh;
+  overflow-y: scroll;
+
   .header {
     margin-bottom: 40px;
     margin-top: 65px;
@@ -148,7 +151,7 @@
           text-align: start;
           padding-left: 10px;
           padding-top: 10px;
-          width: calc(540px - 10px);
+          width: calc(100% - 10px);
           height: calc(52px - 10px);
           background: #f5f8fa;
           border-radius: 0px 0px 4px 4px;
@@ -187,8 +190,8 @@
   }
 
   .footer {
-    width: 540px;
-    margin: 20px auto 475px auto;
+    max-width: 540px;
+    margin: 20px auto;
     text-align: center;
 
     .cancel-sign-up {
@@ -198,6 +201,34 @@
       font-weight: bold;
       font-size: 18px;
       line-height: 26px;
+    }
+  }
+}
+
+@media all and (max-width: 768px) {
+  $small-width: calc(100% - 2em);
+
+  .container {
+    .header {
+      margin-top: 20px;
+    }
+
+    .form-container {
+      #sign-up-form {
+        .input-wrapper {
+          width: $small-width;
+        }
+      }
+
+      button {
+        padding: 10px 0;
+        width: $small-width;
+      }
+    }
+
+    .footer {
+      width: $small-width;
+      margin-bottom: 20px;
     }
   }
 }
@@ -246,7 +277,6 @@ export default {
         ) {
           Toast.fire({
             icon: "warning",
-            position: "top",
             title: "請填寫完整資料",
           });
           return;
@@ -275,7 +305,6 @@ export default {
 
         Toast.fire({
           icon: "success",
-          position: "top",
           title: "註冊成功!",
         });
         // 成功註冊後轉址到登入頁
@@ -290,12 +319,10 @@ export default {
           ? Toast.fire({
               icon: "warning",
               title: `${error.response.data.replace("account", "帳號")}`,
-              position: "top",
             })
           : Toast.fire({
               icon: "warning",
               title: `${error.response.data}`,
-              position: "top",
             });
         console.log("error", error.response || error);
       }

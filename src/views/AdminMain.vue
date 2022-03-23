@@ -10,10 +10,13 @@
 
 <style lang="scss" scoped>
 .main {
-  width: 70%;
-  height: 100%;
-  position: absolute;
-  left: 30%;
+  display: flex;
+}
+
+@media all and (max-width: 768px) {
+  .main {
+    display: block;
+  }
 }
 </style>
 
