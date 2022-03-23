@@ -27,9 +27,8 @@
 <style lang="scss" scoped>
 .user-tabs {
   border-bottom: 1px solid #e6ecf0;
-  position: relative;
-  top: 50px;
   display: flex;
+  justify-content: space-around;
   font-family: "Noto Sans TC", sans-serif;
   font-style: normal;
   font-weight: bold;
@@ -38,7 +37,7 @@
   .tweets,
   .repliers,
   .liked {
-    width: 130px;
+    flex-basis: 130px;
     height: 52px;
     display: flex;
     align-items: center;

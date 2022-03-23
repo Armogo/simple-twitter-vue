@@ -110,7 +110,6 @@
                 v-model="user.name"
                 maxlength="50"
               />
-              <hr />
               <div class="words-num">{{ user.name.length }}/50</div>
             </div>
             <div class="input-wrapper">
@@ -153,8 +152,9 @@
   .modal {
     position: absolute;
     top: 54px;
-    width: 600px;
-    height: 657px;
+    flex-basis: 600px;
+    height: calc(95vh - 54px);
+    max-height: 657px;
     border-radius: 14px;
     background: #ffffff;
     overflow-x: auto;
@@ -231,17 +231,19 @@
       margin-top: 20px;
       .input-wrapper {
         margin: 0 15px;
-        width: 570px;
         position: relative;
 
         span {
           position: absolute;
           left: 10px;
-          top: 5px;
+          padding-top: 5px;
           font-weight: 500;
           font-size: 15px;
           line-height: 15px;
           color: #657786;
+          width: calc(100% - 10px);
+
+          background: #f5f8fa;
         }
         input {
           // 取消預設style
@@ -251,25 +253,18 @@
           text-align: start;
           padding-left: 10px;
           padding-top: 10px;
-          width: 560px;
+          width: calc(100% - 10px);
           height: calc(52px - 10px);
           background: #f5f8fa;
-          border-radius: 0px 0px 4px 4px;
+          border-radius: 4px;
+          border-bottom: 4px solid #657786;
         }
-        hr {
-          margin: 0%;
-          height: 2px;
-          background-color: #657786;
-          border-right: unset;
-          border-left: unset;
-          border-bottom: unset;
-          border-radius: 0px 0px 4px 4px;
-        }
+
         textarea {
           resize: none;
           border: 0; // 外框
           outline: none; // 打字時的外框
-          width: 550px;
+          width: calc(100% - 20px);
           height: 125px;
           padding: 25px 10px 0px 10px;
           font-size: 19px;
@@ -278,14 +273,13 @@
           border-bottom: 4px solid #657786;
         }
         .words-num {
-          width: 32px;
           height: 22px;
           font-weight: 500;
           font-size: 15px;
           color: #657786;
           padding-top: 5px;
           font-size: 15px;
-          margin-left: auto;
+          text-align: end;
           margin-bottom: 20px;
         }
       }
@@ -302,6 +296,14 @@
   font-size: 15px;
   cursor: pointer;
   background: transparent;
+}
+
+@media all and (max-width: 768px) {
+  .modal-backdrop {
+    .modal {
+      width: 95vw;
+    }
+  }
 }
 </style>
 
@@ -399,7 +401,6 @@ export default {
         }
         Toast.fire({
           icon: "success",
-          position: "top",
           title: "已更新資料",
         });
       } catch (error) {

@@ -31,84 +31,109 @@
   </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .container {
-  position: absolute;
-  top: 15px;
-  left: 1008px;
+  height: fit-content;
+  flex-basis: 378px;
+  margin: 15px min(18px, 5%);
   background: #f5f8fa;
-  width: 350px;
   border-radius: 14px;
   font-family: "Noto Sans TC", sans-serif;
+
+  h1 {
+    font-size: 18px;
+    padding-left: 15px;
+  }
+
+  .popular-users {
+    display: flex;
+
+    font-size: 15px;
+    font-weight: 700;
+    align-items: center;
+    justify-content: space-around;
+    padding: 10px;
+    border-top: 2px solid #e6ecf0;
+
+    img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin: 10px;
+    }
+
+    .name-account {
+      margin-right: auto;
+      white-space: nowrap;
+
+      .account {
+        color: #657786;
+      }
+    }
+
+    .name,
+    .following-btn,
+    .unfollowing-btn {
+      cursor: pointer;
+      min-width: fit-content;
+    }
+
+    .following-btn {
+      flex-basis: 90px;
+      height: 35px;
+      padding: 0 5px;
+      background: #ff6600;
+      border: 1px solid #ff6600;
+      box-sizing: border-box;
+      border-radius: 100px;
+      font-family: Noto Sans TC;
+      font-size: 15px;
+      color: #ffffff;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .unfollowing-btn {
+      flex-basis: 60px;
+      height: 35px;
+      padding: 0 5px;
+      border: 1px solid #ff6600;
+      box-sizing: border-box;
+      border-radius: 100px;
+      font-family: Noto Sans TC;
+      font-size: 15px;
+      color: #ff6600;
+
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
+  }
 }
 
-h1 {
-  font-size: 18px;
-  padding-left: 15px;
-}
+@media all and (max-width: 768px) {
+  .container {
+    display: none;
+    width: 100vw;
+    height: calc(100vh - 28px);
+    overflow-y: scroll;
+    position: absolute;
+    top: 28px;
+    margin: 0;
 
-.popular-users {
-  display: flex;
-  font-size: 15px;
-  font-weight: 700;
-  align-items: center;
-  justify-content: space-around;
-  padding: 10px;
-  border-top: 2px solid #e6ecf0;
-}
+    > h1 {
+      text-align: center;
+      margin: 0;
+      line-height: 2em;
+    }
 
-img {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  margin: 10px;
-}
-
-.name-account {
-  margin-right: 80px;
-}
-
-.account {
-  color: #657786;
-}
-
-.name,
-.following-btn,
-.unfollowing-btn {
-  cursor: pointer;
-}
-
-.following-btn {
-  width: 90px;
-  height: 35px;
-  background: #ff6600;
-  border: 1px solid #ff6600;
-  box-sizing: border-box;
-  border-radius: 100px;
-  font-family: Noto Sans TC;
-  font-size: 15px;
-  color: #ffffff;
-
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-
-.unfollowing-btn {
-  width: 60px;
-  height: 35px;
-  border: 1px solid #ff6600;
-  box-sizing: border-box;
-  border-radius: 100px;
-  font-family: Noto Sans TC;
-  font-size: 15px;
-  color: #ff6600;
-
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+    .popular-users {
+      width: initial;
+    }
+  }
 }
 </style>
 
@@ -157,10 +182,13 @@ export default {
         }
 
         this.users = data.topTwitters;
+
         // user 不會在 popular list 看見自己的帳號
-        this.users = this.users.filter(
-          (user) => user.followingId !== Number(getUserId())
-        );
+        // 只留追蹤數排名前 10 的帳號
+        this.users = this.users
+          .filter((user) => user.followingId !== Number(getUserId()))
+          .splice(0, 10);
+
         this.userFollowings = data.userFollowingList;
         this.userFollowings = this.userFollowings.map((following) => {
           return following.followingId;
@@ -217,6 +245,14 @@ export default {
         this.$router.push({ name: "other-profile", params: { id } });
       }
     },
+    // control the visibility on narrow screen device
+    showPopular(visible) {
+      if (visible) {
+        this.$el.style.display = "block";
+      } else {
+        this.$el.removeAttribute("style");
+      }
+    },
   },
   created() {
     this.fetchUserData();
@@ -225,10 +261,12 @@ export default {
   mounted() {
     this.$bus.$on("follow", () => this.fetchPopular());
     this.$bus.$on("unfollow", () => this.fetchPopular());
+    this.$bus.$on("show-popular", (visible) => this.showPopular(visible));
   },
   beforeDestroy() {
     this.$bus.$off("follow");
     this.$bus.$off("unfollow");
+    this.$bus.$off("show-popular");
   },
 };
 </script>

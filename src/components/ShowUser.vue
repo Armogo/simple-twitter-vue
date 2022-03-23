@@ -67,12 +67,17 @@
 
 <style lang="scss" scoped>
 .show-user {
-  background-color: white;
+  width: 100%;
+
+  * {
+    box-sizing: border-box;
+  }
 }
 
 header {
   height: 55px;
   display: flex;
+  align-items: center;
   font-family: "Noto Sans TC", sans-serif;
   font-style: normal;
   .icon-back {
@@ -94,7 +99,6 @@ header {
 }
 
 .user-info {
-  position: relative;
   font-family: "Noto Sans TC", sans-serif;
   font-style: normal;
   .background-cover {
@@ -102,7 +106,6 @@ header {
       background-color: gray;
       width: 100%;
       height: 200px;
-      z-index: -1;
     }
   }
   img {
@@ -126,10 +129,9 @@ header {
 
     .btn-follow {
       display: flex;
-      flex-direction: row;
       justify-content: center;
       align-items: center;
-      width: 120px;
+
       height: 35px;
       font-weight: bold;
       border: 1px solid #ff6600;
@@ -141,7 +143,6 @@ header {
   }
 
   .name-account {
-    position: absolute;
     margin: 5px 15px;
     .name {
       font-weight: 900;
@@ -156,16 +157,12 @@ header {
   }
 
   .info {
-    position: relative;
-    top: 51px;
     font-weight: normal;
     font-size: 14px;
     margin: 10px 15px;
   }
 
   .followings-followers {
-    position: relative;
-    top: 50px;
     font-weight: 500;
     font-size: 14px;
     display: flex;

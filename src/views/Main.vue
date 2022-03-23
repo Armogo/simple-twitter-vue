@@ -1,28 +1,53 @@
 <template>
-  <div class="main">
-    <!-- Navbar.vue -->
-    <Navbar @new-post="getTweets" />
-    <div class="mid-area">
-      <!-- CreatePosts.vue -->
-      <CreatePosts :initial-user="userData" @new-post="getTweets" />
-      <!-- NewestPosts.vue -->
-      <NewestPosts
-        :initial-tweets="tweets"
-        :initial-tweets-reply="tweetsReply"
-        :initial-user="userData"
-        @change-like="getTweets"
-        @new-reply="getTweets"
-      />
+  <div class="container">
+    <div class="main">
+      <!-- Navbar.vue -->
+      <Navbar @new-post="getTweets" />
+      <div class="mid-area">
+        <!-- CreatePosts.vue -->
+        <CreatePosts :initial-user="userData" @new-post="getTweets" />
+        <!-- NewestPosts.vue -->
+        <NewestPosts
+          :initial-tweets="tweets"
+          :initial-tweets-reply="tweetsReply"
+          :initial-user="userData"
+          @change-like="getTweets"
+          @new-reply="getTweets"
+        />
+      </div>
+      <!-- Popular.vue -->
+      <Popular />
     </div>
-    <!-- Popular.vue -->
-    <Popular />
   </div>
 </template>
 
 <style lang="scss" scoped>
-.mid-area {
-  width: 600px;
-  margin: 0 0 0 calc(113px + 235px + 30px);
+.container {
+  * {
+    box-sizing: border-box;
+  }
+
+  .main {
+    display: flex;
+
+    .mid-area {
+      flex-basis: 600px;
+    }
+  }
+}
+
+// narrow screen layout
+@media all and (max-width: 768px) {
+  .container {
+    .main {
+      display: block;
+      width: 100vw;
+
+      .mid-area {
+        height: calc(100vh - 28px);
+      }
+    }
+  }
 }
 </style>
 

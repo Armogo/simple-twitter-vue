@@ -106,8 +106,9 @@
 }
 
 .modal-footer {
-  flex-direction: column;
-  justify-content: flex-end;
+  padding-right: 15px;
+  padding-bottom: 15px;
+  text-align: end;
 }
 
 .modal-body {
@@ -127,14 +128,9 @@
 }
 
 .btn-tweet {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
   width: 66px;
   height: 38px;
-  position: relative;
-  left: 519px;
+
   background: #ff6600;
   border: 1px solid #ff6600;
   border-radius: 100px;
@@ -258,6 +254,26 @@
     }
   }
 }
+
+@media all and (max-width: 768px) {
+  .modal-backdrop {
+    .modal {
+      width: 100%;
+
+      .modal-header {
+      }
+
+      .modal-body {
+        padding: 10px;
+      }
+
+      .modal-footer {
+        .btn-tweet {
+        }
+      }
+    }
+  }
+}
 </style>
 
 <script>
@@ -304,7 +320,6 @@ export default {
           return Toast.fire({
             icon: "warning",
             title: "內容不可空白",
-            position: "top",
           });
         }
 
@@ -323,7 +338,6 @@ export default {
         Toast.fire({
           icon: "warning",
           title: "請稍後再試",
-          position: "top",
         });
       }
     },

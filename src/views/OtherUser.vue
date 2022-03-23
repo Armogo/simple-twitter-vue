@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <Navbar :initial-user="userData" />
+  <div class="user">
+    <Navbar />
     <div class="show-user">
       <header>
         <div class="icon-back" @click="$router.go(-1)">
@@ -30,7 +30,7 @@
         <div class="avatar-btn">
           <!-- avatar -->
           <img class="avatar" :src="userData.avatar" />
-          <!-- btn-message -->
+          <!-- TODO btn-message -->
           <svg
             width="35"
             height="35"
@@ -58,8 +58,8 @@
               fill="#FF6600"
             />
           </svg>
-          <!-- btn-noti turn on-->
-          <svg
+          <!-- TODO btn-noti turn on-->
+          <!-- <svg
             width="35"
             height="35"
             viewBox="0 0 35 35"
@@ -77,7 +77,7 @@
               d="M27.6584 7.1313C27.3302 6.9703 26.9391 7.10505 26.7781 7.4288L24.2721 12.4828L22.782 10.899C22.5344 10.6339 22.1187 10.6225 21.8545 10.871C21.5902 11.1195 21.578 11.536 21.8265 11.7985L23.9641 14.07C24.0892 14.2013 24.2616 14.2757 24.4419 14.2757C24.4734 14.2757 24.5057 14.273 24.5381 14.2687C24.7507 14.2372 24.9336 14.1024 25.0299 13.9099L27.9541 8.01242C28.1151 7.68692 27.9821 7.29317 27.6566 7.13217L27.6584 7.1313ZM23.6404 21.5469C23.5677 21.4909 21.8519 20.125 21.8816 16.5069C21.9009 14.378 21.1991 12.4854 19.9076 11.1782C18.7491 10.0057 17.1811 9.35555 15.4924 9.34767H15.481C13.7922 9.35642 12.2242 10.0039 11.0657 11.1782C9.7751 12.4863 9.07335 14.3789 9.09085 16.5087C9.12235 20.125 7.40823 21.49 7.34085 21.5425C7.11335 21.7114 7.01973 22.0063 7.1081 22.2758C7.19735 22.5453 7.44935 22.7264 7.7311 22.7264H11.3011C11.3781 24.9752 13.22 26.7864 15.488 26.7864C17.756 26.7864 19.5987 24.9752 19.6749 22.7264H23.2466C23.5266 22.7264 23.7751 22.5462 23.8652 22.2802C23.9554 22.0142 23.8635 21.7175 23.6412 21.5469H23.6404ZM15.4871 24.9489C14.2324 24.9489 13.2121 23.9628 13.1386 22.7264H17.8356C17.7612 23.9628 16.7419 24.9489 15.4871 24.9489Z"
               fill="white"
             />
-          </svg>
+          </svg> -->
           <!-- btn-follow -->
           <div
             class="btn-unfollow"
@@ -208,142 +208,156 @@
 </template>
 
 <style lang="scss" scoped>
-.show-user {
-  border-left: 1px solid #e5e5e5;
-  border-right: 1px solid #e5e5e5;
-  width: 600px;
-  height: 100%;
-  margin: 0 0 0 calc(113px + 235px + 30px);
-  background-color: white;
+.user {
+  display: flex;
 
-  img {
-    cursor: initial;
+  * {
+    box-sizing: border-box;
   }
 
-  header {
-    height: 55px;
-    display: flex;
-    font-family: "Noto Sans TC", sans-serif;
-    font-style: normal;
-    .icon-back {
-      margin: 20px;
-    }
-    .name-tweets {
-      margin: 6px 20px;
-      .name {
-        font-size: 19px;
-        font-weight: 900;
-        color: #1c1c1c;
-      }
-      .tweets {
-        font-weight: 500;
-        font-size: 13px;
-        color: #657786;
-      }
-    }
-  }
+  .show-user {
+    border-left: 1px solid #e5e5e5;
+    border-right: 1px solid #e5e5e5;
+    flex: 1 1 600px;
+    height: 1200px;
 
-  .user-info {
-    position: relative;
-    font-family: "Noto Sans TC", sans-serif;
-    font-style: normal;
-    .background-cover {
-      .cover {
-        width: 100%;
-        height: 200px;
-        z-index: -1;
-      }
+    background-color: white;
+
+    img {
+      cursor: initial;
     }
 
-    .avatar-btn {
+    header {
+      height: 55px;
       display: flex;
-      justify-content: space-between;
-      max-height: 78px;
-      .avatar {
-        border: 4px solid #ffffff;
-        position: relative;
-        bottom: 64px;
-        left: 15px;
-        width: 140px;
-        height: 140px;
-        border-radius: 50%;
+      font-family: "Noto Sans TC", sans-serif;
+      font-style: normal;
+      .icon-back {
+        margin: 20px;
+      }
+      .name-tweets {
+        margin: 6px 20px;
+        .name {
+          font-size: 19px;
+          font-weight: 900;
+          color: #1c1c1c;
+        }
+        .tweets {
+          font-weight: 500;
+          font-size: 13px;
+          color: #657786;
+        }
+      }
+    }
+
+    .user-info {
+      font-family: "Noto Sans TC", sans-serif;
+      font-style: normal;
+      .background-cover {
+        .cover {
+          width: 100%;
+          height: 200px;
+          z-index: -1;
+        }
       }
 
-      .btn-follow,
-      .btn-unfollow {
+      .avatar-btn {
+        display: flex;
+        gap: 0 10px;
+        padding-right: 1%;
+        max-height: 78px;
+        .avatar {
+          border: 4px solid #ffffff;
+          position: relative;
+          bottom: 64px;
+          left: min(15px, 2%);
+          width: 140px;
+          height: 140px;
+          border-radius: 50%;
+          margin-right: auto;
+        }
+
+        .btn-follow,
+        .btn-unfollow {
+          cursor: pointer;
+        }
+      }
+
+      .name-account {
+        margin: 5px 15px;
+        .name {
+          font-weight: 900;
+          font-size: 19px;
+          color: #1c1c1c;
+        }
+        .account {
+          font-weight: 500;
+          font-size: 15px;
+          color: #657786;
+        }
+      }
+
+      .info {
+        top: 51px;
+        font-weight: normal;
+        font-size: 14px;
+        margin: 10px 15px;
+      }
+
+      .followings-followers {
+        font-weight: 500;
+        font-size: 14px;
+        display: flex;
+        margin: 0px 15px;
+        color: #657786;
+        .followings,
+        .followers {
+          display: flex;
+          margin-right: 20px;
+        }
+        .num {
+          color: #000000;
+        }
+
+        a {
+          text-decoration: none;
+        }
+      }
+    }
+
+    .user-tabs {
+      border-bottom: 1px solid #e6ecf0;
+
+      display: flex;
+      justify-content: space-around;
+      font-family: "Noto Sans TC", sans-serif;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 15px;
+      color: #657786;
+      .tweets,
+      .repliers,
+      .liked {
+        height: 52px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         cursor: pointer;
       }
-    }
-
-    .name-account {
-      position: absolute;
-      margin: 5px 15px;
-      .name {
-        font-weight: 900;
-        font-size: 19px;
-        color: #1c1c1c;
-      }
-      .account {
-        font-weight: 500;
-        font-size: 15px;
-        color: #657786;
-      }
-    }
-
-    .info {
-      position: relative;
-      top: 51px;
-      font-weight: normal;
-      font-size: 14px;
-      margin: 10px 15px;
-    }
-
-    .followings-followers {
-      position: relative;
-      top: 50px;
-      font-weight: 500;
-      font-size: 14px;
-      display: flex;
-      margin: 0px 15px;
-      color: #657786;
-      .followings,
-      .followers {
-        display: flex;
-        margin-right: 20px;
-      }
-      .num {
-        color: #000000;
-      }
-
-      a {
-        text-decoration: none;
+      .active {
+        border-bottom: 2px solid #ff6600;
+        color: #ff6600;
       }
     }
   }
+}
 
-  .user-tabs {
-    border-bottom: 1px solid #e6ecf0;
-    position: relative;
-    top: 50px;
-    display: flex;
-    font-family: "Noto Sans TC", sans-serif;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 15px;
-    color: #657786;
-    .tweets,
-    .repliers,
-    .liked {
-      width: 130px;
-      height: 52px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-    }
-    .active {
-      border-bottom: 2px solid #ff6600;
-      color: #ff6600;
+@media all and (max-width: 768px) {
+  .user {
+    display: block;
+
+    .show-user {
+      max-height: 1000px;
     }
   }
 }

@@ -12,4 +12,15 @@ img,
 button {
   cursor: pointer;
 }
+
+// 客製的 scrollbar
+* {
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+}
 </style>

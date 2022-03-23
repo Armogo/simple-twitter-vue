@@ -122,7 +122,7 @@ export const TWLocale = {
       d: "1 天",
       dd: "%d 天",
       M: "1 個月",
-      MM: "%d 个月",
+      MM: "%d 個月",
       y: "1 年",
       yy: "%d 年",
     },
@@ -132,6 +132,5 @@ export const TWLocale = {
       doy: 4, // The week that contains Jan 4th is the first week of the year.
     },
   }),
-  // useLocale: moment.locale('zh-tw'),
-  showTime: moment().format("h:mm a"),
+  formatTime: moment().format("h:mm a"),
 };

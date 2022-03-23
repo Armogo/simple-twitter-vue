@@ -20,12 +20,31 @@
 </template>
 
 <style lang="scss" scoped>
-.profile {
-  border-left: 1px solid #e5e5e5;
-  border-right: 1px solid #e5e5e5;
-  width: 600px;
-  height: 100%;
-  margin: 0 0 0 calc(113px + 235px + 30px);
+.user {
+  display: flex;
+
+  * {
+    box-sizing: border-box;
+  }
+
+  .profile {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 600px;
+    height: 1200px;
+    border-left: 1px solid #e5e5e5;
+    border-right: 1px solid #e5e5e5;
+  }
+}
+
+@media all and (max-width: 768px) {
+  .user {
+    display: block;
+
+    .profile {
+      max-height: 1000px;
+    }
+  }
 }
 </style>
 

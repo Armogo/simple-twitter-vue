@@ -50,6 +50,7 @@
   bottom: 0;
   left: 0;
   right: 0;
+  z-index: 1;
   background-color: rgba(0, 0, 0, 0.3);
   display: flex;
   justify-content: center;
@@ -57,8 +58,6 @@
 }
 
 .modal {
-  position: absolute;
-  top: 54px;
   width: 600px;
   height: 300px;
   border-radius: 14px;
@@ -84,7 +83,7 @@
 
 .modal-footer {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   padding-right: 15px;
 
   .word-count {
@@ -172,14 +171,12 @@ export default {
     async newTweet() {
       if (this.newPostContent.trim().length < 1) {
         return Toast.fire({
-          position: "top",
           width: "26rem",
           icon: "warning",
           title: "內容不可空白",
         });
       } else if (this.newPostContent.length > 140) {
         return Toast.fire({
-          position: "top",
           icon: "warning",
           title: "推文字數140字以內",
         });

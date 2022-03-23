@@ -15,9 +15,24 @@
 </template>
 
 <style lang="scss" scoped>
-.mid-area {
-  width: 600px;
-  margin: 0 0 0 calc(113px + 235px + 30px);
+.reply {
+  display: flex;
+
+  .mid-area {
+    flex-basis: 600px;
+    margin: 0 0 0 min(15px, 1vw);
+  }
+}
+
+@media all and (max-width: 768px) {
+  .reply {
+    display: block;
+
+    .mid-area {
+      width: 100%;
+      margin: 0;
+    }
+  }
 }
 </style>
 
