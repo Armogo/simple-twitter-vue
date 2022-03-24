@@ -50,8 +50,7 @@
 
     font-size: 15px;
     font-weight: 700;
-    align-items: center;
-    justify-content: space-around;
+    align-items: center;    
     padding: 10px;
     border-top: 2px solid #e6ecf0;
 
@@ -63,15 +62,22 @@
     }
 
     .name-account {
+      min-width: 3.5em;
       margin-right: auto;
-      white-space: nowrap;
+
+      .name {
+        white-space: nowrap;
+        overflow-x: hidden;
+        cursor: pointer;
+      }
 
       .account {
+        white-space: nowrap;
+        overflow-x: hidden;
         color: #657786;
       }
     }
 
-    .name,
     .following-btn,
     .unfollowing-btn {
       cursor: pointer;
@@ -81,7 +87,6 @@
     .following-btn {
       flex-basis: 90px;
       height: 35px;
-      padding: 0 5px;
       background: #ff6600;
       border: 1px solid #ff6600;
       box-sizing: border-box;
